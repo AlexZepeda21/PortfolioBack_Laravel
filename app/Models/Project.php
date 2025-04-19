@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Mockery\Matcher\HasKey;
+
+class Project extends Model
+{
+    protected $table = "projects";
+    protected $primaryKey = "id_project";
+    protected $fillable = [
+        "title_project",
+        "image_base64",
+        "image_mime",
+        "description",
+        "project_category_id",
+    ];
+
+    public function projectCategory()
+    {
+        return $this->belongsTo(ProjectCategory::class, "project_category_id", "id_project_category");
+    }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class, "project_id", "id_project"); /* Foreignkey en la tabla imágenes y primaryKey en la tabla Proyectos */
+    }
+
+    public function technologies()
+    {
+        return $this->belongsToMany
+        (
+            Technology::class,                 // Modelo relacionado
+            'project_technology',                //Tabla pivote
+            'project_id',             // FK en la tabla pivote que apunta a esta tabla (projects)
+            'technology_id',          // FK en la tabla pivote que apunta a la otra tabla (technologies)
+            'id_project',             // PK de esta tabla (projects)
+            'id_technology'           // PK de la tabla relacionada (technologies)
+        );
+    }
+}
