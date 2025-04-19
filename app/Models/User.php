@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models;
+//Importando modelos
+use App\Models\Comment;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -45,4 +47,23 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function comments()
+    {
+        return $this->hasMany(
+            Comment::class,
+            "user_id",
+            "id"
+        );
+    }
+
+    public function projects(){
+        return $this->hasMany(
+            Project::class,
+            "user_id",
+            "id"
+        );
+    }
+
+
 }

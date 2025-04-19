@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+//Importando modelos.
+use App\Models\Project;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
