@@ -2,13 +2,13 @@
 
 use Illuminate\Http\Request;
 
-class TechnologyDto
+class TechnologyStoreDto
 {
     public function __construct(
         public string $name_technology,
-        public string $description,
-        public string $image_base64,
-        public string $image_mime
+        public ?string $description,
+        public ?string $image_base64,
+        public ?string $image_mime
     ){}
 
     public static function fromRequest(Request $request): self

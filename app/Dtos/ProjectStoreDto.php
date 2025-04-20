@@ -1,21 +1,22 @@
 <?php
 use Illuminate\Http\Request;
 
-class ProjectDto
+class ProjectStoreDto
 {
     public function __construct(
-        public string $type_project,
+        public ?string $type_project,
         public string $title_project,
-        public string $development_start_date,
-        public string $development_end_date,
-        public ?string $image_base64, 
+        public ?string $development_start_date,
+        public ?string $development_end_date,
+        public ?string $image_base64,
         public ?string $image_mime,
         public ?string $url_github,
         public ?string $url_site,
         public ?string $url_download,
         public ?string $description,
         public ?int $project_category_id = null,
-    ) {}
+    ) {
+    }
 
     public static function fromRequest(Request $request): self
     {
