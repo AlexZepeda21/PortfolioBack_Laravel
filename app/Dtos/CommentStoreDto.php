@@ -19,5 +19,15 @@ class CommentStoreDto
             $request->input('user_id'),
             $request->input('project_id')
         );
+    } 
+    public function toArray(): array
+    {
+        return [
+            'comment' => $this->comment,
+            'guest_name' => $this->guest_name,
+            'user_id' => $this->user_id,
+            'project_id' => $this->project_id,
+        ];
     }
+
 }

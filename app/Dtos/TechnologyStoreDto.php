@@ -20,4 +20,12 @@ class TechnologyStoreDto
             $request->input('image_mime')
         );
     }
+    public function toArray(): array{
+        return [
+            'name_technology' => $this->name_technology,
+            'description' => $this->description,
+            'image_base64' => $this->image_base64,
+            'image_mime' => $this->image_mime,
+        ];
+    }
 }

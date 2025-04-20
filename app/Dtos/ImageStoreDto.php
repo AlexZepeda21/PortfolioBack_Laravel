@@ -1,4 +1,6 @@
 <?php
+
+use App\Models\Image;
 use Illuminate\Http\Request;
 
 class ImageStoreDto
@@ -18,5 +20,15 @@ class ImageStoreDto
             $request->input('image_mime'),
             $request->input('project_id')
         );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'title_image'=>$this->title_image,
+            'image_base64'=>$this->image_base64,
+            'image_mime'=>$this->image_mime,
+            'project_id'=>$this->project_id,
+        ];
     }
 }

@@ -11,7 +11,8 @@ class ProjectCategoryStoreDto
         public ?string $summary,
         public ?string $url
 
-    ){}
+    ) {
+    }
     public static function fromRequest(Request $request): self
     {
         return new self(
@@ -22,5 +23,16 @@ class ProjectCategoryStoreDto
             $request->input('summary'),
             $request->input('url')
         );
+    }
+    public function toArray(): array
+    {
+        return [
+            'title' => $this->title,
+            'image_base64' => $this->image_base64,
+            'image_mime' => $this->image_mime,
+            'description' => $this->description,
+            'summary' => $this->summary,
+            'url' => $this->url,
+        ];
     }
 }

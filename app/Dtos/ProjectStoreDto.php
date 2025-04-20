@@ -14,7 +14,7 @@ class ProjectStoreDto
         public ?string $url_site,
         public ?string $url_download,
         public ?string $description,
-        public ?int $project_category_id = null,
+        public ?int $project_category_id = null
     ) {
     }
 
@@ -31,7 +31,24 @@ class ProjectStoreDto
             $request->input('url_site'),
             $request->input('url_download'),
             $request->input('description'),
-            $request->input('project_category_id', null),
+            $request->input('project_category_id', null)
         );
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'type_project' => $this->type_project,
+            'title_project' => $this->title_project,
+            'development_start_date' => $this->development_start_date,
+            'development_end_date' => $this->development_end_date,
+            'image_base64' => $this->image_base64,
+            'image_mime' => $this->image_mime,
+            'url_github' => $this->url_github,
+            'url_site' => $this->url_site,
+            'url_download' => $this->url_download,
+            'description' => $this->description,
+            'project_category_id' => $this->project_category_id,
+        ];
     }
 }
