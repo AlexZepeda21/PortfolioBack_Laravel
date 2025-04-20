@@ -1,6 +1,6 @@
 <?php
+namespace App\Dtos;
 
-use App\Models\Image;
 use Illuminate\Http\Request;
 
 class ImageStoreDto
