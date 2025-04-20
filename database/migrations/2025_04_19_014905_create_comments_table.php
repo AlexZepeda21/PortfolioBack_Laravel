@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->id("id_comment");
-            $table->text("comment");
-            $table->string("guest_name")->nullable();
+            $table->id('id_comment');
+            $table->text('comment');
+            $table->string('guest_name')->nullable();
             
-            $table->unsignedBigInteger("user_id")->nullable();
-            $table->unsignedBigInteger("project_id");
-            $table->foreign("user_id")->references("id")->on("users")->onDelete("set null")->onUpdate("cascade");
-            $table->foreign("project_id")->references("id_project")->on("projects")->onDelete("cascade")->onUpdate("cascade");
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('project_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('project_id')->references('id_project')->on('projects')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

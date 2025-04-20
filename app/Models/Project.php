@@ -12,21 +12,37 @@ class Project extends Model
     protected $table = "projects";
     protected $primaryKey = "id_project";
     protected $fillable = [
-        "title_project",
-        "image_base64",
-        "image_mime",
-        "description",
-        "project_category_id",
-        "user_id",
+        'title_project',
+        'type_project',
+        'development_start_date',
+        'development_end_date',
+        'image_base64',
+        'image_mime',
+        'url_github',
+        'url_site',
+        'url_download',
+        'description',
+        'project_category_id',
+        'user_id',
+        'last_edition',
 
     ];
+
+    
+    public function user(){
+        return $this->belongsTo(
+            User::class,
+            'user_id',
+            'id'
+        );
+    }
 
     public function projectCategory()
     {
         return $this->belongsTo(
             ProjectCategory::class,
-            "project_category_id",
-            "id_project_category"
+            'project_category_id',
+            'id_project_category'
         );
     }
 
@@ -34,8 +50,8 @@ class Project extends Model
     {
         return $this->hasMany(
             Image::class,
-            "project_id",
-            "id_project"
+            'project_id',
+            'id_project'
         ); /* Foreignkey en la tabla imágenes y primaryKey en la tabla Proyectos */
     }
 
@@ -56,8 +72,8 @@ class Project extends Model
     {
         return $this->hasMany(
             Comment::class,
-            "project_id",
-            "id_project"
+            'project_id',
+            'id_project'
         );
     }
 
@@ -69,13 +85,10 @@ class Project extends Model
             $project->images()->delete();
             $project->comments()->delete();
         });
+
+        static::updating(function ($project){
+            $project->last_edition = now();
+        });
     }
 
-    public function user(){
-        return $this->belongsTo(
-            User::class,
-            "user_id",
-            "id"
-        );
-    }
 }

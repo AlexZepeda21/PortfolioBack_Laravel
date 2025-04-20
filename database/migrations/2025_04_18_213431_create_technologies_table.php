@@ -11,11 +11,11 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('technologies', function (Blueprint $table) {
-            $table->id("id_technology");
-            $table->string("name_technology");
-            $table->string("description")->nullable();
-            $table->longText("image_base64")->nullable();
-            $table->string("image_mime")->nullable();
+            $table->id('id_technology');
+            $table->string('name_technology');
+            $table->string('description')->nullable();
+            $table->longText('image_base64')->nullable();
+            $table->string('image_mime')->nullable();
             $table->timestamps();
         });
     }
