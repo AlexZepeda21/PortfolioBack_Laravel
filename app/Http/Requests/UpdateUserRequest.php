@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Dtos\UserUpdateDto;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -27,5 +28,15 @@ class UpdateUserRequest extends FormRequest
             'password'=>'string|required',
             'role'=>'string|required',
             ];
+    }
+
+    public function toDto(): UserUpdateDto
+    {
+        return new UserUpdateDto(
+            $this->input('name'),
+            $this->input('email'),
+            $this->input('password'),
+            $this->input('role'),
+        );
     }
 }

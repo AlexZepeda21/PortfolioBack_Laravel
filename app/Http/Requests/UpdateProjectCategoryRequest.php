@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Dtos\ProjectCategoryUpdateDto;
 
 class UpdateProjectCategoryRequest extends FormRequest
 {
@@ -29,5 +30,17 @@ class UpdateProjectCategoryRequest extends FormRequest
             'summary' => 'nullable|string',
             'url' => 'nullable|string',
         ];
+    }
+
+    public function toDto(): ProjectCategoryUpdateDto
+    {
+        return new ProjectCategoryUpdateDto(
+            $this->input(key: 'title'),
+            $this->input(key: 'image_base64'),
+            $this->input(key: 'image_mime'),
+            $this->input(key: 'description'),
+            $this->input(key: 'summary'),
+            $this->input(key: 'url'),
+        );
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Dtos\TechnologyUpdateDto;
 
 class UpdateTechnologyRequest extends FormRequest
 {
@@ -22,10 +23,20 @@ class UpdateTechnologyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name_technology'=>'nullable|string',
-            'description'=>'nullable|string',
-            'image_base64'=>'nullable|string',
-            'image_mime'=>'nullable|string',
+            'name_technology' => 'nullable|string',
+            'description' => 'nullable|string',
+            'image_base64' => 'nullable|string',
+            'image_mime' => 'nullable|string',
         ];
+    }
+
+    public function toDto(): TechnologyUpdateDto
+    {
+        return new TechnologyUpdateDto(
+            $this->input('name_technology'),
+            $this->input('description'),
+            $this->input('image_base64'),
+            $this->input('image_mime'),
+        );
     }
 }

@@ -5,11 +5,10 @@ namespace App\Services;
 use App\Models\Comment;
 use App\Dtos\CommentStoreDto;
 use App\Dtos\CommentUpdateDto;
-use App\Dtos\ProjectStoreDto;
 
 class CommentService
 {
-    public function store(ProjectStoreDto $dto): Comment
+    public function store(CommentStoreDto $dto): Comment
     {
         return Comment::create($dto->toArray());
     }

@@ -13,7 +13,7 @@ class ImageService
         return Image::create($dto->toArray());
     }
 
-    public function update(Image $image, ImageStoreDto $dto): Image
+    public function update(Image $image, ImageUpdateDto $dto): Image
     {
         $image-> update($dto->toArray());
         return $image;

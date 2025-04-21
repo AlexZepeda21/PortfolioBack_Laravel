@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests;
+use App\Dtos\CommentUpdateDto;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,9 +24,19 @@ class UpdateCommentRequest extends FormRequest
     {
         return [
             'comment'=>'nullable|string',
-            'gest_name'=>'nullable|string',
+            'guest_name'=>'nullable|string',
             'user_id'=>'nullable|int',
             'project_id'=>'nullable|int',
         ];
+    }
+
+    public function toDto(): CommentUpdateDto
+    {
+        return new CommentUpdateDto(
+            $this->input('comment'),
+            $this->input('guest_name'),
+            $this->input('user_id'),
+            $this->input('project_id'),
+        );
     }
 }

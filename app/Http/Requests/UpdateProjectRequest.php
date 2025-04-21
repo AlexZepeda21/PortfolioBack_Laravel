@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Dtos\ProjectUpdateDto;
 
 class UpdateProjectRequest extends FormRequest
 {
@@ -34,5 +35,22 @@ class UpdateProjectRequest extends FormRequest
             'description' => 'nullable|longText',
             'project_category_id' => 'nullable|integer|exists:project_categories,id_project_category',
         ]; 
+    }
+
+    public function toDto():ProjectUpdateDto
+    {
+        return new ProjectUpdateDto(
+            $this->input('type_project'),
+            $this->input('title_project'),
+            $this->input('development_start_date'),
+            $this->input('development_end_date'),
+            $this->input('image_base64'),
+            $this->input('image_mime'),
+            $this->input('url_github'),
+            $this->input('url_site'),
+            $this->input('url_download'),
+            $this->input('description'),
+            $this->input('project_category_id'),
+        );
     }
 }

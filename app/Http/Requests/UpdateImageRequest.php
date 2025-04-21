@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Dtos\ImageUpdateDto;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateImageRequest extends FormRequest
@@ -27,5 +28,15 @@ class UpdateImageRequest extends FormRequest
             'image_mime'=>'nullable|string',
             'project_id'=>'nullable|string',
         ];
+    }
+
+    public function toDto(): ImageUpdateDto
+    {
+        return new ImageUpdateDto(
+            $this->input('title_image'),
+            $this->input('image_base64'),
+            $this->input('image_mime'),
+            $this->input('project_id'),
+        );
     }
 }
