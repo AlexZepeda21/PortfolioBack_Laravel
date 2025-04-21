@@ -16,7 +16,8 @@ class ProjectStoreDto
         public ?string $url_site,
         public ?string $url_download,
         public ?string $description,
-        public ?int $project_category_id = null
+        public ?int $project_category_id = null,
+        public int $user_id
     ) {
     }
 
@@ -33,7 +34,8 @@ class ProjectStoreDto
             $request->input('url_site'),
             $request->input('url_download'),
             $request->input('description'),
-            $request->input('project_category_id', null)
+            $request->input('project_category_id', null),
+            $request->input('user_id'),
         );
     }
 
@@ -51,6 +53,7 @@ class ProjectStoreDto
             'url_download' => $this->url_download,
             'description' => $this->description,
             'project_category_id' => $this->project_category_id,
+            'user_id'=>$this->user_id,
         ];
     }
 }

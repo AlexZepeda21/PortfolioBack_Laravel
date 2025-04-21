@@ -86,6 +86,10 @@ class Project extends Model
             $project->comments()->delete();
         });
 
+        static::creating(function ($project) {
+            $project->last_edition = now();
+        });
+
         static::updating(function ($project){
             $project->last_edition = now();
         });

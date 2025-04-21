@@ -15,10 +15,10 @@ use App\Http\Controllers\api\UserController; //usuario
 //Controllers with cut route
 
 //imagen
-Route::apiResource('images', App\Http\Controllers\api\ImageController::class);
+Route::apiResource('image', App\Http\Controllers\api\ImageController::class);
 
 //comentario
-Route::apiResource('comments', App\Http\Controllers\api\CommentController::class);
+Route::apiResource('comment', App\Http\Controllers\api\CommentController::class);
 
 //categoria
 Route::apiResource('projectCategory', App\Http\Controllers\api\ProjectCategoryController::class);
