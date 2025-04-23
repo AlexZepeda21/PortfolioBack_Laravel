@@ -9,6 +9,12 @@ class ProjectCategoryService {
     public function store(ProjectCategoryStoreDto $dto): ProjectCategory{
         return ProjectCategory::create($dto->toArray());
     }
+
+    public function findCategoryWithProjects(int $id)
+    {
+        return ProjectCategory::with('projects')->findOrFail($id);
+    }
+    
     public function update(ProjectCategory $projectCategory, ProjectCategoryUpdateDto $dto): ProjectCategory{
         $projectCategory->update($dto->toArray());
         return $projectCategory;

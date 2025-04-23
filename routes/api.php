@@ -22,6 +22,7 @@ Route::apiResource('comment', App\Http\Controllers\api\CommentController::class)
 
 //categoria
 Route::apiResource('projectCategory', App\Http\Controllers\api\ProjectCategoryController::class);
+Route::get('/categories/{id}/projects', [ProjectCategoryController::class, 'showWithProjects']);
 
 //proyecto
 Route::apiResource('project', App\Http\Controllers\api\ProjectController::class);

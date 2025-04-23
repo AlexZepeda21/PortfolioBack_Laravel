@@ -9,19 +9,28 @@ use App\Dtos\ProjectCategoryStoreDto;
 use App\Dtos\ProjectCategoryUpdateDto;
 use App\Http\Requests\StoreProjectCategoryRequest;
 use App\Http\Requests\UpdateProjectCategoryRequest;
-
+use App\Http\Resources\ProjectByCategoryResource;
 use Illuminate\Http\Request;
 
 class ProjectCategoryController extends Controller
 {
-    public function __construct(protected ProjectCategoryService $projectCategoryService){}
+    public function __construct(protected ProjectCategoryService $projectCategoryService)
+    {
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $projectCategory = ProjectCategory::all();
-        return response()->json($projectCategory,200);
+        return response()->json($projectCategory, 200);
+    }
+
+    public function showWithProjects($id)
+    {
+        $category = $this->projectCategoryService->findCategoryWithProjects($id);
+        return new ProjectByCategoryResource($category);
+        
     }
 
     /**
@@ -32,7 +41,7 @@ class ProjectCategoryController extends Controller
         $dto = ProjectCategoryStoreDto::fromRequest($request);
         $projectCategory = $this->projectCategoryService->store($dto);
 
-        return response()->json($projectCategory,201);
+        return response()->json($projectCategory, 201);
     }
 
     /**
