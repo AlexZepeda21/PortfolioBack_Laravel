@@ -25,8 +25,6 @@ class ProjectResource extends JsonResource
             'url_site' => $this->url_site,
             'url_download' => $this->url_download,
             'description' => $this->description,
-            'project_category_id' => $this->project_category_id,
-            'user_id'=>$this->user_id,
         ];
     }
 }
