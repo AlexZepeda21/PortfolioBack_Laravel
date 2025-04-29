@@ -11,6 +11,7 @@ use App\Http\Controllers\api\ProjectCategoryController; //categoria
 use App\Http\Controllers\api\ProjectController; //proyecto
 use App\Http\Controllers\api\TechnologyController; //tecnologia
 use App\Http\Controllers\api\UserController; //usuario
+use App\Http\Controllers\api\AuthController; //Autenticación
 
 //Controllers with cut route
 
@@ -33,3 +34,6 @@ Route::apiResource('technology', App\Http\Controllers\api\TechnologyController::
 //usuario
 Route::apiResource('user', App\Http\Controllers\api\UserController::class);
 
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::middleware('auth:api')->post('/logout', [AuthController::class, 'logout']); 
