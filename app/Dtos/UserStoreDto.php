@@ -11,7 +11,6 @@ class UserStoreDto
         public string $name,
         public string $email,
         public string $password,
-        public string $role
 
     ) {
     }
@@ -22,7 +21,6 @@ class UserStoreDto
             $request->input('name'),
             $request->input('email'),
             Hash::make($request->input('password')),
-            $request->input('role')
         );
     }
 
@@ -33,7 +31,6 @@ class UserStoreDto
             'name' => $this->name,
             'email' => $this->email,
             'password' => $this->password,
-            'role' => $this->role,
         ];
     }
 }

@@ -2,10 +2,10 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
@@ -16,7 +16,7 @@ class AuthController extends Controller
         if (empty($credentials['email']) || empty($credentials['password'])) {
             return response()->json([
                 'success' => false,
-                'message' => 'Correo y/o contraseña invalidos'
+                'message' => 'Correo y/o contraseña inválidos'
             ], 400);
         }
 
@@ -25,15 +25,20 @@ class AuthController extends Controller
             $user = Auth::user();
             $token = JWTAuth::fromUser($user);
 
+            // Obtén los roles del usuario
+            $roles = $user->roles->pluck('name');
+
             return response()->json([
                 'success' => true,
-                'token' => $token
+                'token' => $token,
+                'user' => $user,
+                'roles' => $roles,  // Aquí devolvemos los roles del usuario
             ]);
         }
 
         return response()->json([
             'success' => false,
-            'message' => 'Credenciales invalidas.'
+            'message' => 'Credenciales inválidas.'
         ], 400);
     }
 
@@ -48,8 +53,12 @@ class AuthController extends Controller
         $user = \App\Models\User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password), // Asegúrate de encriptar la contraseña
+            'password' => bcrypt($request->password),
         ]);
+
+        $user->assignRole('admin');
+
+        $roles = $user->getRoleNames(); 
 
         $token = JWTAuth::fromUser($user);
 
@@ -57,24 +66,8 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'Usuario registrado correctamente',
             'token' => $token,
-            'user' => $user
+            'user' => $user,
+            'roles' => $roles 
         ], 201);
-    }
-
-    public function logout(Request $request)
-    {
-        try {
-            JWTAuth::invalidate(JWTAuth::getToken());
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Sesión cerrada correctamente.'
-            ]);
-        } catch (JWTException $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error al cerrar sesión.'
-            ], 500);
-        }
     }
 }
