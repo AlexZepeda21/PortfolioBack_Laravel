@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
@@ -56,9 +57,9 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-        $user->assignRole('admin');
+        $user->assignRole('cliente');
 
-        $roles = $user->getRoleNames(); 
+        $roles = $user->getRoleNames();
 
         $token = JWTAuth::fromUser($user);
 
@@ -67,7 +68,24 @@ class AuthController extends Controller
             'message' => 'Usuario registrado correctamente',
             'token' => $token,
             'user' => $user,
-            'roles' => $roles 
+            'roles' => $roles
         ], 201);
+    }
+
+    public function logout(Request $request)
+    {
+        try {
+            JWTAuth::invalidate(JWTAuth::getToken());
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Sesión cerrada correctamente.'
+            ]);
+        } catch (JWTException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al cerrar sesión.'
+            ], 500);
+        }
     }
 }
