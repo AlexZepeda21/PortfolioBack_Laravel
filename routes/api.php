@@ -12,6 +12,7 @@ use App\Http\Controllers\api\ProjectController; //proyecto
 use App\Http\Controllers\api\TechnologyController; //tecnologia
 use App\Http\Controllers\api\UserController; //usuario
 use App\Http\Controllers\api\AuthController; //Autenticación
+use App\Http\Controllers\api\ProjectTechnologyController; //Project_Technology
 
 //Controllers with cut route
 
@@ -30,6 +31,9 @@ Route::apiResource('project', App\Http\Controllers\api\ProjectController::class)
 
 //tecnologia
 Route::apiResource('technology', App\Http\Controllers\api\TechnologyController::class);
+
+//Project_Technology
+Route::apiResource('project-technology', App\Http\Controllers\api\ProjectTechnologyController::class);
 
 //usuario
 Route::apiResource('user', App\Http\Controllers\api\UserController::class);
