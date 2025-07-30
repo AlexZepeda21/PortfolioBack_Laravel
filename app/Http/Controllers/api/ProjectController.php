@@ -9,6 +9,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Dtos\ProjectStoreDto;
 use App\Dtos\ProjectUpdateDto;
+use App\Models\Technology;
 use App\Services\ProjectService;
 
 class ProjectController extends Controller
@@ -19,7 +20,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::with('Technologies')->get();
         return response()->json($projects, 200);
     }
 
